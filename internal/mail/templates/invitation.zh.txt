@@ -1,0 +1,9 @@
+{{.Inviter}}邀请你加入 OpenTodo
+
+这是一封 OpenTodo 的邀请。
+
+{{.Inviter}}邀请 {{.Email}} 加入 {{.Origin}} 上的 OpenTodo 服务器。要创建账户，请打开此链接：
+
+{{.Link}}
+
+链接将在 {{.Expiry}}后失效。如果你不认识{{.Inviter}}，可以忽略这封邮件。

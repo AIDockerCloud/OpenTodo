@@ -1,6 +1,6 @@
 ---
 title: The app in your language
-summary: Pick the language of the app once and every device follows: English, German, French, Spanish, Italian or Portuguese, with dates, notifications and quick add to match.
+summary: Pick the language of the app once and every device follows: English, German, French, Spanish, Italian, Portuguese or Simplified Chinese, with dates, notifications and quick add to match.
 audience: user
 section: Guides
 specs: [localization]
@@ -11,7 +11,7 @@ order: 143
 
 <picture><source srcset="images/settings-dark.webp" media="(prefers-color-scheme: dark)"><img src="images/settings-light.webp" alt="The Settings page with its You and App groups; the first section of the App group holds the language, the start view and the date and time options."></picture>
 
-OpenTodo speaks **English**, **Deutsch**, **Français**, **Español**, **Italiano** and **Português**. Pick one in **Settings → Language and region → Language**; each is listed in its own language, so you can find yours whatever the app shows now.
+OpenTodo speaks **English**, **Deutsch**, **Français**, **Español**, **Italiano**, **Português** and **简体中文**. Pick one in **Settings → Language and region → Language**; each is listed in its own language, so you can find yours whatever the app shows now.
 
 - **System** uses the first language of your browser that the app has, and English otherwise. The option names the language it picked, for example *System (Deutsch)*.
 - Your choice belongs to your account: every device you sign in on switches to it after the next sync, also when you changed it offline.
@@ -31,6 +31,7 @@ OpenTodo speaks **English**, **Deutsch**, **Français**, **Español**, **Italian
 - Filter queries and repeat rules keep their English keywords (`due <= tomorrow`, `every weekday`), so a saved view works in every language.
 - The guide in **Help** and this documentation are in English; Help says so in your language.
 - The browser extension follows your browser's language. See [Capturing pages](capture.md#browser-extension).
+- **Quick add understands dates in six languages, not in Chinese.** With Chinese chosen the interface, the emails and the reminders are Chinese, but a date in the quick-add line is still written in English (`tomorrow`, `next fri 3pm`); a Chinese vocabulary needs a segmenter, because the line is split on spaces. See [Quick add syntax](quick-add.md#languages).
 
 ## Offline
 

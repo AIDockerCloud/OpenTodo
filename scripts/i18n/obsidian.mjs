@@ -10,7 +10,7 @@ import { join } from 'node:path'
 import { calleeName, literalsOf, parse, repo, ts, walk } from './source.mjs'
 
 export const obsidianDir = (root = repo) => join(root, 'obsidian')
-export const OBSIDIAN_LANGS = ['en', 'de', 'fr', 'es', 'it', 'pt']
+export const OBSIDIAN_LANGS = ['en', 'de', 'fr', 'es', 'it', 'pt', 'zh']
 
 /** The tr() messages of one source text. */
 export function trMessagesIn(file, text) {

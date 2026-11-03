@@ -80,7 +80,7 @@ OpenTodo is at **0.4**: every feature on the roadmap is in, covered by automated
 
 ## Features
 
-The highlights: the app in six languages, quick add in plain language, projects with sections and boards, recurring tasks, reminders with push, filters and saved views, time blocking, shared projects with comments, CalDAV, webhooks, a REST API and CLI, passkeys, two-factor and single sign-on, optional end-to-end encryption.
+The highlights: the app in seven languages, quick add in plain language, projects with sections and boards, recurring tasks, reminders with push, filters and saved views, time blocking, shared projects with comments, CalDAV, webhooks, a REST API and CLI, passkeys, two-factor and single sign-on, optional end-to-end encryption.
 
 <details>
 <summary><strong>Full feature list</strong></summary>
