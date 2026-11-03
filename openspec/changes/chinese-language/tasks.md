@@ -3,13 +3,13 @@
 ## 0. Before starting
 
 - [ ] 0.1 Decide the route: personal fork (catalog ships as drafted) or upstream pull request (a named native-speaker maintainer reviews every entry, design D2); record the decision in this file
-- [ ] 0.2 `git checkout -b develop` off `main`; verify `git status` is clean apart from `.workbuddy/`
+- [x] 0.2 `git checkout -b develop` off `main`; verify `git status` is clean apart from `.workbuddy/`
 
 ## 1. Glossary and tooling
 
-- [ ] 1.1 A `简体中文` column in the glossary of `docs/translating.md` (design D7), and the language added to the first paragraph's list only at 6.1; verify the table renders and every row has an entry
-- [ ] 1.2 Batch tooling outside the repository: `~/tmp/zh/batches/NN.json` fragments merged into `web/src/locales/zh.json` in `messages.json` order (design D8); verify a merge of an empty fragment leaves the file byte-identical
-- [ ] 1.3 `web/node_modules/typescript` only (`npm i typescript` without the rest of the tree, design D9); verify `node scripts/i18n-check.mjs` prints `ok (7082 messages, every shipped catalog complete)` before any translation is added
+- [x] 1.1 A `简体中文` column in the glossary of `docs/translating.md` (design D7), and the language added to the first paragraph's list only at 6.1; verify the table renders and every row has an entry
+- [x] 1.2 Batch tooling outside the repository: `~/tmp/zh/batches/NN.json` fragments merged into `web/src/locales/zh.json` in `messages.json` order (design D8); verify a merge of an empty fragment leaves the file byte-identical
+- [x] 1.3 `web/node_modules/typescript` only (`npm i typescript` without the rest of the tree, design D9); verify `node scripts/i18n-check.mjs` prints `ok (7082 messages, every shipped catalog complete)` before any translation is added
 
 ## 2. The web catalog
 
@@ -20,7 +20,7 @@ One fragment per source area, largest first, each merged and checked before the 
 - [ ] 2.3 Settings (`lib/settingsCopy.ts`, `app/settings*`, `app/display/`, `app/profile/`) — about 600
 - [ ] 2.4 Rules, review and method (`lib/rules/`, `app/review/`, `app/method/`, `lib/method/`, `app/rules/`) — about 700
 - [ ] 2.5 Routines, assistant, palette, filter, calendar, locations, themes, focus (`app/routines/`, `app/assistant/`, `lib/assistant/`, `app/palette/`, `app/filter/`, `lib/filter/`, `app/calendar/`, `app/locations/`, `app/themes/`, `lib/theme/`, `app/focus/`) — about 1300
-- [ ] 2.6 Errors and server messages (`lib/i18n/errors.ts`) — 136; every code keeps its meaning and the server's fallback still reads
+- [x] 2.6 Errors and server messages (`lib/i18n/errors.ts`) — 136; every code keeps its meaning and the server's fallback still reads
 - [ ] 2.7 Long tail: shortcuts, activity, push texts, webhooks, colour names, fields, import/export, help links, page titles — the remainder
 - [ ] 2.8 Read the catalog once end to end for terms, register, punctuation and tone (design D6, D7); no entry left in English by accident
 
