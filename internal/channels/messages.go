@@ -53,7 +53,7 @@ const (
 	genericMessageTitle  = "OpenTodo"
 )
 
-// texts holds every message in the six app languages. {name} is the actor.
+// texts holds every message in the app languages. {name} is the actor.
 var texts = map[string]map[string]string{
 	"en": {
 		txtTurn: "It's your turn on a task", txtTurnWith: "It's your turn",
@@ -126,6 +126,18 @@ var texts = map[string]map[string]string{
 		txtUnblockedWith: "Já pode começar", txtPageRepliedBy: "{name} respondeu na página da tarefa",
 		txtPageDoneBy: "{name} concluiu a tarefa na página dela", txtPageReopenedBy: "{name} reabriu a tarefa na página dela",
 		txtTestTitle: "Teste do OpenTodo", txtTestBody: "Este canal funciona.", txtGuest: "Um convidado",
+	},
+	"zh": {
+		txtTurn: "有任务轮到你了", txtTurnWith: "轮到你了",
+		txtRoutine:       "例行任务给你发来一条通知",
+		txtRoutineFailed: "例行任务失败", txtRoutineFailedWith: "它没有执行完。打开本次运行查看原因。",
+		txtReminder: "有提醒到期", txtAssigned: "有任务分配给你", txtMentioned: "有人提到了你",
+		txtUnblocked: "分配给你的任务可以开始了", txtPageReplied: "访客在任务页上回复了",
+		txtPageDone: "访客完成了任务页", txtPageReopened: "访客重新打开了任务页",
+		txtReminderWith: "提醒", txtAssignedBy: "{name}把这个任务分配给了你", txtMentionedBy: "{name}提到了你",
+		txtUnblockedWith: "可以开始了", txtPageRepliedBy: "{name}在任务页上回复了",
+		txtPageDoneBy: "{name}在任务页上完成了任务", txtPageReopenedBy: "{name}在任务页上重新打开了任务",
+		txtTestTitle: "来自 OpenTodo 的测试", txtTestBody: "此推送渠道可用。", txtGuest: "访客",
 	},
 }
 
