@@ -78,7 +78,7 @@ Use these terms consistently; they match the quick-add vocabulary and the server
 | Project | Projekt | projet | proyecto | progetto | projeto | 项目 |
 | Section | Abschnitt | section | sección | sezione | seção | 分区 |
 | Label | Label | étiquette | etiqueta | etichetta | etiqueta | 标签 |
-| Inbox | Eingang | Boîte de réception | Bandeja de entrada | In arrivo | Caixa de entrada | 收件箱 |
+| Inbox | Eingang | Boîte de réception | Bandeja de entrada | In arrivo | Caixa de entrada | 收集箱 |
 | Today | Heute | Aujourd’hui | Hoy | Oggi | Hoje | 今天 |
 | Upcoming | Demnächst | À venir | Próximo | In programma | Em breve | 即将到来 |
 | Anytime | Jederzeit | N’importe quand | En cualquier momento | In qualsiasi momento | A qualquer hora | 随时 |

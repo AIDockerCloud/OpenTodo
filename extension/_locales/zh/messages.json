@@ -99,7 +99,7 @@
   },
   "popupInbox": {
     "description": "The project picker’s choice for no project.",
-    "message": "收件箱"
+    "message": "收集箱"
   },
   "popupLabels": {
     "description": "Label of the label picker.",
