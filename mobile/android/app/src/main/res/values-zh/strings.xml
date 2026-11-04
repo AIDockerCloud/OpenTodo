@@ -9,10 +9,10 @@
     <string name="setup_try">试试 %1$s</string>
     <string name="setup_refused">无法使用这个地址。输入类似 todo.example.com 的地址。</string>
     <string name="setup_needs_https">这个地址需要安全连接（https）。</string>
-    <string name="setup_insecure">这个地址在你本地网络上，且未加密：同一网络中的其他人可能读到你的发送内容。再点一次仍然连接。</string>
+    <string name="setup_insecure">这个地址在你本地网络上，且未加密：同一网络中的其他人可能会读取你发送的内容。再点一次仍然连接。</string>
     <string name="setup_no_network">没有连接。首次启动需要网络；网络恢复后此界面会自动重试。</string>
     <string name="setup_not_opentodo">这个地址的响应不像 OpenTodo 服务器。检查地址。</string>
-    <string name="setup_untrusted">这台手机不信任服务器的证书。询问运维服务器的人，或在 Android 设置中安装其证书颁发机构。</string>
+    <string name="setup_untrusted">这台手机不信任服务器的证书。询问运行此服务器的人，或在 Android 设置中安装其证书颁发机构。</string>
     <string name="retry">重试</string>
     <string name="change_server">更改服务器</string>
     <string name="change_server_confirm">这会从这台手机上移除当前服务器的数据：离线副本、已安排的提醒、小组件数据和指纹解锁。尚未同步的更改会丢失。</string>
