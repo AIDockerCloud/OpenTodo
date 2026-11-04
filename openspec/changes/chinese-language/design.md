@@ -42,7 +42,7 @@ Priority) and fixes a few it must not drift on:
 - Due date is 截止日期 and Deadline is 最后期限; the two never share a word, and
   a shortcut that sets a due date says 设为…到期 rather than 截止.
 - The calendar keeps its three apart: a slot is 时段, a time sector is 时间区间
-  and a frame is 时间框.
+  and a frame is 时间块.
 - An occurrence of a recurring task is 这一次 where it is the button and 实例
   where it is counted.
 
