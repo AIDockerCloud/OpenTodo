@@ -9,7 +9,11 @@ describe('strings', () => {
   it('picks a shipped language from Obsidian’s code, else English', () => {
     expect(pickLanguage('de')).toBe('de')
     expect(pickLanguage('pt-BR')).toBe('pt')
-    expect(pickLanguage('zh-TW')).toBe('en')
+    expect(pickLanguage('zh')).toBe('zh')
+    // One Chinese catalogue is shipped, so a Traditional Chinese Obsidian reads
+    // the Simplified one (the web app resolves 'zh-TW' the same way).
+    expect(pickLanguage('zh-TW')).toBe('zh')
+    expect(pickLanguage('ja')).toBe('en')
     expect(pickLanguage(undefined)).toBe('en')
   })
 

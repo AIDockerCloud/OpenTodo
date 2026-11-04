@@ -1,6 +1,6 @@
 // The Obsidian plugin's own strings (OpenSpec change obsidian-plugin, task 6.1):
 // obsidian/src calls tr('English text'), and obsidian/locales/<lang>.json maps
-// each message to its translation in the six shipped languages. Checked here,
+// each message to its translation in the shipped languages. Checked here,
 // inside `make i18n-check`, like the iOS shell's catalog:
 //   - every tr() message has an entry in every catalog, and no entry is stale,
 //   - no entry is empty, and every message and translation parses,

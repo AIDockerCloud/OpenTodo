@@ -40,8 +40,10 @@ One fragment per source area, largest first, each merged and checked before the 
 ## 5. Registration
 
 - [x] 5.1 One commit that flips every surface: `{ code: 'zh', name: '简体中文' }` in `SHIPPED`, and nothing else that changes behavior; verify `node scripts/i18n-check.mjs` (now strict) is silent and `node --test extension/locales.test.js` passes
-- [ ] 5.2 `make i18n-check`, `make ui-lint`, `make check` where the toolchain is installed; `go test ./internal/mail/... ./internal/channels/... ./internal/quickadd/...`
-- [ ] 5.3 Bundle: the `zh` chunk stays out of the first load and `make bundle-budget` passes
+- [x] 5.4 The language list that the app reads the preference through: `LanguagePref` in `web/src/lib/types.ts` and `LANGUAGES` in `web/src/lib/userPrefs.ts` both list the shipped codes. A code missing there is read as `system`, so the choice in Settings does not stick. Both now derive from `SHIPPED`, so a language that ships is always one the reader can keep. Verify: `web/src/lib/userPrefs.test.ts` reads every shipped code back.
+- [x] 5.5 The plugin (`obsidian/src/strings.ts`) and the digest emails (`web/src/app/DigestCard.tsx`) have their own language lists; `zh` is in both, and the plugin's `zh-TW` now reads the Simplified catalogue (D1).
+- [x] 5.2 `make i18n-check`, `make ui-lint`, `make check` where the toolchain is installed; `go test ./internal/mail/... ./internal/channels/... ./internal/quickadd/...`
+- [x] 5.3 Bundle: the `zh` chunk stays out of the first load and `make bundle-budget` passes
 
 ## 6. Review
 

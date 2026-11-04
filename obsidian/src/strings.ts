@@ -1,4 +1,4 @@
-// The plugin's own strings in the six languages the web app ships, following
+// The plugin's own strings in the seven languages the web app ships, following
 // Obsidian's interface language (obsidian-plugin task 6.1). A message is its
 // English text, as in the web app: tr('Send line to OpenTodo'). The catalogues
 // in obsidian/locales/ map it to the translation; `make i18n-check` checks that
@@ -12,11 +12,12 @@ import es from '../locales/es.json'
 import fr from '../locales/fr.json'
 import it from '../locales/it.json'
 import pt from '../locales/pt.json'
+import zh from '../locales/zh.json'
 
-export const LANGUAGES = ['en', 'de', 'fr', 'es', 'it', 'pt'] as const
+export const LANGUAGES = ['en', 'de', 'fr', 'es', 'it', 'pt', 'zh'] as const
 export type Language = (typeof LANGUAGES)[number]
 
-const CATALOGS: Record<Language, Record<string, string>> = { en, de, fr, es, it, pt }
+const CATALOGS: Record<Language, Record<string, string>> = { en, de, fr, es, it, pt, zh }
 
 let language: Language = 'en'
 

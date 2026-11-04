@@ -731,7 +731,7 @@ var Schema = map[string]map[string]Field{
 		// read an empty or unknown value as shown.
 		"start_checklist": {Kind: kString, Default: `""`},
 		// Interface language (OpenSpec change app-localization, design D1):
-		// "system" or a shipped language code (en, de, fr, es, it, pt). Not
+		// "system" or a shipped language code (en, de, fr, es, it, pt, zh). Not
 		// restricted here; clients read an unknown code as "system" and keep the
 		// stored value, so a catalog added later stays additive.
 		"language": {Kind: kString, Default: `"system"`},

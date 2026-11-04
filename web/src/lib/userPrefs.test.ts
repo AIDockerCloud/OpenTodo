@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
+import { SHIPPED } from '../locales'
 import { db, useDatabase } from './db'
 import { applyOps, resetDeviceId } from './ops'
 import { DAY_STARTS, hideStartChecklist, readDayStart, readLanguage, readUserPrefs, setUserPref, startChecklistHidden } from './userPrefs'
@@ -59,6 +60,14 @@ describe('language (app-localization D1)', () => {
     expect(readLanguage(await db.userPrefs.get('me'))).toBe('it')
     const queued = (await db.outbox.toArray()).map(({ entity, entityId, field, value }) => ({ entity, entityId, field, value }))
     expect(queued).toEqual([{ entity: 'user_prefs', entityId: 'me', field: 'language', value: 'it' }])
+  })
+
+  it('every shipped language reads back, so choosing one in Settings sticks', async () => {
+    let ts = 10
+    for (const code of SHIPPED.map((l) => l.code)) {
+      await applyOps([{ id: `s-${code}`, entity: 'user_prefs', entityId: 'me', field: 'language', value: code, ts: ts++, device: 'laptop' }])
+      expect(readLanguage(await db.userPrefs.get('me'))).toBe(code)
+    }
   })
 })
 

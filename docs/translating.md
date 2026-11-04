@@ -62,10 +62,13 @@ Details are in [scripts/README.md](../scripts/README.md#i18n-checkmjs-and-i18n).
 ## Adding a language
 
 1. Copy `messages.json`'s keys into `web/src/locales/<code>.json` and translate them. Until the file is listed, the check only prints how far it is ("pl: 412 of 3550").
-2. Add `{ code, name }` to `SHIPPED` in `web/src/locales/index.ts`, with the name in the language itself.
+2. Add `{ code, name }` to `SHIPPED` in `web/src/locales/index.ts`, with the name in the language itself. Everything that lists the shipped languages reads this list, so the choice in Settings, the stored preference (`user_prefs.language`) and the type behind it follow by themselves.
 3. Add the language's texts to the table in `web/public/push-sw.js` and a folder to `extension/_locales/`.
-4. Quick add understands dates in a language only with a vocabulary in `web/src/lib/nlp/vocab/`; that is a separate contribution.
-5. Name a maintainer for the language in the pull request. A speaker of the language reviews every catalog change; machine translation is not accepted.
+4. The Obsidian plugin has its own catalogues in `obsidian/locales/` and its own list in `obsidian/src/strings.ts`; the digest emails have their own templates in `internal/mail/templates/`. Add the language to each of the three.
+5. Quick add understands dates in a language only with a vocabulary in `web/src/lib/nlp/vocab/`; that is a separate contribution.
+6. Name a maintainer for the language in the pull request. A speaker of the language reviews every catalog change; machine translation is not accepted.
+
+The lists in step 4 are separate on purpose: the plugin and the emails have their own texts, and the check compares each of them with its own catalogue. A language that ships in the app but not in the plugin is fine — the plugin then keeps English.
 
 ## Glossary
 

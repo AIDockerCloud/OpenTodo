@@ -127,12 +127,6 @@ Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn
 横向溢出（M6，severity 4）、截断（M10）、控件重叠（M11）、点击目标（M7/M21）、
 对比度（M9）、布局抖动（M12）、axe 无障碍（M1）等，并给每处问题截图。
 
-实测（中文，1280 px light，104 张截图）：**M6 横向溢出 0 处**——中文比拉丁紧凑，
-不会像长英文那样撑破容器。M10 截断 4 处，全部是种子数据里的长标题和文件名
-（"Members: Ada Lovelace (owner)"、图片名），不是界面文案。
-
-英文 360 px 的同规则基线是 M6 0 处、M10 8 处，中文不比英文差。
-
 跑法（Playwright 与 Chromium 需要另装）：
 
 ```bash
@@ -143,6 +137,61 @@ cd .. && NODE_PATH=$PWD/web/node_modules LANGS=en,zh WIDTHS=360,1280 THEMES=ligh
 
 `LANGS` 的**第一个语言是基准**：只有「后来的语言有、基准语言没有」的溢出与截断
 才标 `languageOnly`（脚本第 412 行），所以必须 `en` 在前、`zh` 在后。
+
+**跑之前先确认中文真的生效**：截图里如果侧边栏还是 "Inbox / Today / Upcoming"，
+那是英文界面，测出来的数字毫无意义。判断方法见下一节。
+
+**`LANGS` 的顺序有讲究**：脚本对**第一个**语言用英文文案判断界面就绪
+（`scripts/ux-audit/layout-screens.mjs` 里 `heading('Upcoming')`、
+`getByRole('button', { name: 'Sign in' })`），对**后续**语言改用通用选择器
+（`tour.mjs` 第 205 行）。所以：
+
+- `LANGS=en,zh`（推荐）：英文在前当基准，中文用通用选择器，不会误报。
+- `LANGS=zh` 单独跑：中文成了第一个语言，脚本仍去找英文标题，于是 48 个界面
+  记成 `NAV` 超时。**界面本身是好的**——截图里「即将到来」渲染完全正常，
+  只是脚本没认出它。遇到这种 NAV 批量超时，先看截图再怀疑应用。
+
+### 中英对照的实测数字
+
+同一份脚本、同一批界面（1280 px light，104 张截图），**英文与中文各跑一遍**：
+
+| | 横向溢出 M6 | 截断 M10 | 控件重叠 M11 | 点击目标 M7 | NAV |
+|---|---|---|---|---|---|
+| 英文 | 0 | 4 | 15 | 123 | 0 |
+| 中文 | 1 | 1 | 18 | 70 | 48（脚本的英文文案所致，见上） |
+
+- 中文唯一的 **M6** 在 dashboard 的一个 `<kbd>` 快捷键提示上（1294 px vs 1280），
+  截图里界面并无可见溢出；英文那次走的是 `LANGS[0]` 的另一条测量路径，故未记到。
+- 中文唯一的 **M10** 是种子数据里的图片文件名
+  （`IMG_20261015_143012_receipt_with_a_long_camera_name.png`），不是界面文案。
+- 中文 **M7 只有英文的三分之一**：中文字符更宽但控件文字更短，点击目标更容易达标。
+- 截图里仍是英文的三处（`errand`、`waiting`、`deep-work` 标签，`Planning` /
+  `In progress` / `Waiting` 分组）是**种子数据建的用户数据**，按设计不进目录
+  （`docs/translating.md`：「任务标题、项目名、标签名、筛选关键字属于数据」）。
+
+### 这一步抓到的真 bug：设置里选「简体中文」存不住
+
+第一次跑对照审计时，中文截图里全是英文界面。查下去是应用本身的问题，不是审计的：
+
+`web/src/lib/userPrefs.ts` 的 `LANGUAGES` 与 `web/src/lib/types.ts` 的 `LanguagePref`
+各自列了一遍语言代码，两处都只有 `en, de, fr, es, it, pt`。用户在
+**设置 → 语言**里选「简体中文」，写进 `user_prefs.language` 的是 `zh`，但读取时
+`readLanguage()` 用 `pick(LANGUAGES, …)` 校验，白名单里没有 `zh`，于是回退成 `system`，
+界面回到浏览器语言——**选了就丢，刷新也丢**。
+
+`SHIPPED`（`web/src/locales/index.ts`）是唯一该列语言的地方，设置页的下拉、
+`isShipped()`、语言解析都已经从它读。两处硬编码的清单因此既会漏新语言，也会和
+`SHIPPED` 走散。改法是让它们从 `SHIPPED` 派生：
+
+- `LANGUAGES` = `['system', ...SHIPPED.map((l) => l.code)]`；
+- `LanguagePref` = `'system' | LanguageCode`。
+
+这样「发布一种语言」只需改 `SHIPPED` 一处。插件（`obsidian/src/strings.ts`）和摘要
+邮件（`web/src/app/DigestCard.tsx`）各有自己的清单，各加一条 `zh`。
+
+验证：新增用例让 `web/src/lib/userPrefs.test.ts` 把 `SHIPPED` 里的每个代码都读回来；
+再用真实服务器跑一遍——写服务端偏好、**不带任何 localStorage**，新设备打开
+`document.lang` 是 `zh`，侧边栏是「收集箱 / 今天 / 即将到来」。
 
 ### 两个会让你误判的环境问题
 
@@ -156,6 +205,12 @@ cd .. && NODE_PATH=$PWD/web/node_modules LANGS=en,zh WIDTHS=360,1280 THEMES=ligh
    ```
 2. `src/app/todayAgenda.test.tsx > says how old the cached events are while offline` 在 671 个
    worker 全并发时会偶发超时，单跑 10/10 通过。既有 flaky。
+3. **机器负载高时，全量 vitest 会有几十个 `waitFor ... 10000 ms did not hold` 失败**，
+   与改动无关：与 `ux-audit` 并行跑时 48 失败，单独跑时 18 失败（全是
+   `scripts/docs/check.test.mjs`，每个用例要 3.5 s），再单独跑该文件 18/18 全过。
+   **判断方法：把失败的文件单独重跑一遍**，全过就是 flaky，别去改代码。
+4. `ux-audit` 与 vitest 同时跑时，`ux-audit` 可能在第一次 `page.goto` 就 30 s 超时
+   （`tour.mjs` 第 265 行）。串行跑，别并行。
 
 ## 6. 视觉验收
 
