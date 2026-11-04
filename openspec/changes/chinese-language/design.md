@@ -31,35 +31,20 @@ Translated text lives in eight places, each with its own list of six languages:
 
 **D6. Register and punctuation.** Plain, direct Chinese: imperative for buttons (`删除`, not `请删除`), no honorific `您` (the equivalent of the other catalogs' *du*/*tu*/*tú*), full-width `，。：；？！` and `“”`, half-width digits and Latin, no space between Chinese and Latin. `Settings → Security` becomes `设置 → 安全`, keeping the ` → ` separator the check reads. Terms follow the glossary in D7 and in `docs/translating.md`.
 
-**D7. One glossary, decided before the first batch.**
+**D7. One glossary, in `docs/translating.md`.**
+The terms live in the glossary column of `docs/translating.md`, beside the other
+five languages, so there is one place to read them and one place to change them —
+the same place the Dutch change (D1 of `more-languages`) puts its own. Simplified
+Chinese adds a few of its own (例行任务 for Routine, 专注 for Focus, 优先级 for
+Priority) and fixes a few it must not drift on:
 
-| English | 简体中文 | Note |
-|---|---|---|
-| Task | 任务 | |
-| Subtask | 子任务 | |
-| Project | 项目 | |
-| Section | 分区 | not 章节 (a document chapter) |
-| Label | 标签 | |
-| Inbox | 收件箱 | |
-| Today | 今天 | view name; also the date word |
-| Upcoming | 即将到来 | |
-| Anytime | 随时 | |
-| Someday | 某天 | |
-| This Evening | 今晚 | |
-| Completed | 已完成 | |
-| Trash | 回收站 | |
-| Due date | 截止日期 | |
-| Deadline | 最后期限 | distinct from 截止日期 |
-| Reminder | 提醒 | |
-| Quick add | 快速添加 | |
-| Settings | 设置 | section paths depend on this |
-| Owner / admin / editor / viewer | 所有者 / 管理员 / 编辑者 / 查看者 | |
-| Passkey | 通行密钥 | the platform vendors' term for passkey |
-| Two-factor authentication | 双重验证 | |
-| Weekly review | 每周回顾 | |
-| Routine | 例行任务 | |
-| Focus | 专注 | |
-| Priority | 优先级 | |
+- Section is 分区, never 章节, which is a chapter of a document.
+- Due date is 截止日期 and Deadline is 最后期限; the two never share a word, and
+  a shortcut that sets a due date says 设为…到期 rather than 截止.
+- The calendar keeps its three apart: a slot is 时段, a time sector is 时间区间
+  and a frame is 时间框.
+- An occurrence of a recurring task is 这一次 where it is the button and 实例
+  where it is counted.
 
 **D8. Batches of one source file.** Messages are translated in fragments kept outside the repository (`~/tmp/zh/batches/`) and merged into `web/src/locales/zh.json` by a small script, ordered largest-first so that every batch is one feature's text and reuses its neighbours' wording. After each merge `node scripts/i18n-check.mjs` prints the new count and the fragment is kept for review. The catalog file is written in the order of `messages.json` so a diff between two batches is a pure insertion.
 
