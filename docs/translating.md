@@ -69,7 +69,9 @@ Details are in [scripts/README.md](../scripts/README.md#i18n-checkmjs-and-i18n).
 
 ## Glossary
 
-Use these terms consistently; they match the quick-add vocabulary and the server's email templates. German uses *du*, French *vous*, Spanish *tú*, Italian *tu*, Portuguese (Brazil) *você* and Simplified Chinese no honorific: no `您`, imperative buttons, full-width `，。：“”`, no space between Chinese and Latin.
+Use these terms consistently; they match the quick-add vocabulary and the server's email templates. German uses *du*, French *vous*, Spanish *tú*, Italian *tu*, Portuguese (Brazil) *você* and Simplified Chinese no honorific: no `您`, imperative buttons, full-width `，。：“”`.
+
+Simplified Chinese puts a space between Chinese and Latin script, so `OpenTodo` reads `OpenTodo 的主题` rather than `OpenTodo的主题`. A placeholder counts as Latin: it renders whatever the user typed, so keep a space on the side that touches Chinese. The one exception is `{name}`, which is nearly always a name the reader gave in Chinese — `{name}的账户菜单` reads better than `{name} 的账户菜单`.
 
 | English | Deutsch | Français | Español | Italiano | Português | 简体中文 |
 | --- | --- | --- | --- | --- | --- | --- |
