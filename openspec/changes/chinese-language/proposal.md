@@ -39,5 +39,5 @@ None.
 - **Data model, sync, op schema:** none. `language: "zh"` is an existing field with a new value.
 - **E2EE:** none; no content fields.
 - **API, CLI, MCP:** none. `internal/mail` gains `zh` in its language list and twelve `.zh.txt` templates; `internal/channels/messages.go` gains a `zh` table.
-- **Bundle and binary size:** the Chinese catalog is its own lazily loaded chunk, never in the first load. Chinese is denser than the Latin catalogs, so the chunk should be smaller than German's ~590 KB raw.
+- **Bundle and binary size:** the Chinese catalog is its own lazily loaded chunk, never in the first load. Measured: 515 KB raw and 178 KB gzipped, about the same download as German (574 KB raw, 178 KB gzipped).
 - **Fonts:** none added (design D4).
