@@ -1,12 +1,15 @@
 # 审校清单（提交 PR 之前，由母语维护者执行）
 
-这个变更里的 7 个面、约 7,400 条中文全部是 AI 初译。`localization` 规格写明
+这个变更里的 7 个面、约 7,400 条中文全部是 AI 初译（Web 词条 7088 条，其余六面 326 条）。`localization` 规格写明
 「已发布词条须由人撰写与审阅，不得机器翻译」，所以**下面每一步都要真人走完**，
 缺一步就不能提 PR。整套流程的产出物是：一份你签字认可的 catalog + 一条通过的 CI。
 
 ---
 
 ## 0. 先把工具链装上（一次就够）
+
+> 本分支已经变基到 `upstream/main`（`ed97c6cdd`）。上游那 14 个提交往词条表加了 6 条
+> （评论 webhook 三个事件、单键快捷键开关、Android 麦克风提示），已补译，条数从 7082 变成 7088。
 
 ```bash
 cd ~/ai/github.com/AIDockerCloud/OpenTodo
@@ -17,7 +20,7 @@ go mod download              # Go 侧编译与测试
 装完后确认机器上能跑：
 
 ```bash
-make i18n-check              # 应输出 ok (7082 messages, every shipped catalog complete)
+make i18n-check              # 应输出 ok (7088 messages, every shipped catalog complete)
 ```
 
 > 我这边只装了 `web/node_modules/typescript`（4.4 MB），够跑 i18n 检查，但 `make check`
