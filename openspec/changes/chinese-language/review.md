@@ -96,23 +96,42 @@ node --test extension/locales.test.js          # 17 项，应全绿
 node scripts/i18n-check.mjs                    # 含 shell + obsidian 检查
 ```
 
-## 5. 补跑我这边跑不了的三件事
+## 5. 机器检查结果（本机已实测，2026-11-04）
 
-```bash
-# ① 全量检查：tsc 类型、vitest、ui-lint（JSX 里的英文会被抓）
-make check
+工具链：`web/node_modules` 444 MB（`npm install`，**不要用 `npm ci`**，它会先清空 node_modules）、
+Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn,direct`。
 
-# ② Go 侧：邮件 golden 必须重新生成
-UPDATE_GOLDEN=1 go test ./internal/mail/ -run Golden
-go test ./internal/mail/... ./internal/channels/... ./internal/quickadd/...
+| 检查 | 结果 |
+|---|---|
+| `node scripts/i18n-check.mjs` | ok（7088 条，含 shell、obsidian） |
+| `tsc --noEmit` + `tsc --noEmit -p tsconfig.sw.json` | 通过 |
+| `eslint --max-warnings 0 src` | 通过 |
+| `node scripts/ui-check.mjs` | ok |
+| `node --test extension/locales.test.js` | 17 项全绿 |
+| `go test ./internal/mail/... ./internal/channels/... ./internal/quickadd/...` | 全过 |
+| `make fmt-check` / `templates-check` / `docs-check` | 通过 |
+| `openspec validate --all --strict` | 145 项全过 |
+| `make bundle-budget` | ok：入口 141.2 KB / 预算 142；首屏 678.5 KB / 预算 679 |
+| `vitest` | 7611 通过、1 个既有 flaky、7 skipped（见下） |
 
-# ③ 首屏预算：中文包必须是懒加载，不能进首屏
-make bundle-budget
-```
+**中文包体积**：`zh-*.js` 515 KB 原始 / **178 KB gzip**，独立懒加载 chunk
+（德语 574 KB / 178 KB，法语 588 KB / 178 KB —— 中文下载量与德语持平）。
 
-> ⚠️ **②必须做**：`internal/mail/testdata/digest.zh.golden` 是我在没有 Go 的机器上按渲染逻辑
-> 复刻生成的，英文 golden 能逐字节对上，但中文排版（数字与全角冒号）未必和 Go 的真实输出一致。
-> 用 `UPDATE_GOLDEN=1` 重新生成一份，再 `git diff` 看差异是否只是排版。
+`internal/mail/testdata/digest.zh.golden` **不用重新生成**：`TestDigestGolden` 已通过，
+说明它与 Go 的真实渲染逐字节一致。
+
+### 两个会让你误判的环境问题
+
+1. **直接在中文 locale 下跑 `npm test` 会看到约 70 个失败**，全部是 `waitFor ... 10000 ms` 超时和
+   日期断言失败。根因是 `web/public/push-sw.js` 里的 `const locale = lang === 'en' ? undefined : lang`：
+   英文界面用**系统默认 locale** 格式化日期，你这台机器是 zh_CN，于是得到
+   `Due 11月 3, 3:00 下午`。这不是汉化引入的，main 上同样如此，值得单独给上游提 issue。
+   ```bash
+   cd /home/inverstar/ai/github.com/AIDockerCloud/OpenTodo/web
+   LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 npm test
+   ```
+2. `src/app/todayAgenda.test.tsx > says how old the cached events are while offline` 在 671 个
+   worker 全并发时会偶发超时，单跑 10/10 通过。既有 flaky。
 
 ## 6. 视觉验收
 
@@ -148,4 +167,5 @@ PR 描述里必须写清楚三件事，否则维护者会打回：
   属独立变更。`docs/language.md` 已如实写明。
 - **繁体中文**：`resolveLanguage` 只取主语言标签，`zh-TW` 会落到 `zh`（简体）。要支持繁体需先改 locale 解析。
 - **中文字体**：不打包 CJK 子集（几 MB，会破首屏预算），中文用系统字体渲染。
-- **`digest.zh.golden`**：需按第 5 节 ② 重新生成后确认。
+- **上游的 locale 依赖**：`push-sw.js` 在英文界面用系统默认 locale 格式化日期，测试因此依赖宿主
+  locale（见第 5 节）。本变更没有动它，但值得单独提一个 issue。

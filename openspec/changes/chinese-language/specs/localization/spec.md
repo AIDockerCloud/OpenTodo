@@ -7,6 +7,10 @@ English, German, French, Spanish, Italian, Portuguese and Simplified Chinese SHA
 - **WHEN** the user opens the Language panel
 - **THEN** the seven shipped languages are listed, each in its own name
 
+#### Scenario: Work-in-progress catalog
+- **WHEN** a catalog in the repository is incomplete
+- **THEN** it is not offered in Settings and the release check reports its missing messages
+
 #### Scenario: A Chinese browser
 - **WHEN** a user whose browser prefers `zh-CN` signs in for the first time
 - **THEN** the interface is shown in Simplified Chinese and the panel's System entry names it
