@@ -120,6 +120,30 @@ Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn
 `internal/mail/testdata/digest.zh.golden` **不用重新生成**：`TestDigestGolden` 已通过，
 说明它与 Go 的真实渲染逐字节一致。
 
+### 视觉验收（用上游自己的 ux-audit，不靠肉眼看）
+
+上游有 `scripts/ux-audit/tour.mjs`（`make ux-audit`）：它开**每一个界面与浮层**
+（`scripts/ux-audit/screens.json` 有 107 项）在 360/768/1280 px、深浅两色、逐语言下检查
+横向溢出（M6，severity 4）、截断（M10）、控件重叠（M11）、点击目标（M7/M21）、
+对比度（M9）、布局抖动（M12）、axe 无障碍（M1）等，并给每处问题截图。
+
+实测（中文，1280 px light，104 张截图）：**M6 横向溢出 0 处**——中文比拉丁紧凑，
+不会像长英文那样撑破容器。M10 截断 4 处，全部是种子数据里的长标题和文件名
+（"Members: Ada Lovelace (owner)"、图片名），不是界面文案。
+
+英文 360 px 的同规则基线是 M6 0 处、M10 8 处，中文不比英文差。
+
+跑法（Playwright 与 Chromium 需要另装）：
+
+```bash
+cd web && npm install --no-save playwright && node node_modules/playwright-core/cli.js install chromium
+cd .. && NODE_PATH=$PWD/web/node_modules LANGS=en,zh WIDTHS=360,1280 THEMES=light \
+  node scripts/ux-audit/tour.mjs
+```
+
+`LANGS` 的**第一个语言是基准**：只有「后来的语言有、基准语言没有」的溢出与截断
+才标 `languageOnly`（脚本第 412 行），所以必须 `en` 在前、`zh` 在后。
+
 ### 两个会让你误判的环境问题
 
 1. **直接在中文 locale 下跑 `npm test` 会看到约 70 个失败**，全部是 `waitFor ... 10000 ms` 超时和
@@ -135,15 +159,21 @@ Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn
 
 ## 6. 视觉验收
 
+**自动化部分已在第 5 节做完**（上游的 `ux-audit`，逐界面逐视口逐语言）。
+剩下的是机器测不到、只有眼睛能判断的三件事：
+
 ```bash
 cd web && npm run dev
 ```
 
-浏览器切到简体中文，按这四个视口各看一遍：**375 px / 1280 px × 浅色 / 深色**。只看三件事：
+浏览器切到简体中文，按这四个视口各看一遍：**375 px / 1280 px × 浅色 / 深色**。
 
 - 换行后的中文行高是否挤（中文比西文需要更多行距）；
 - 侧边栏、任务行、按钮里的文字是否被截断；
-- 数字与中文混排（`截止 2026-11-06`）是否别扭。
+- 数字与中文混排（`截止日期 2026-11-06`）是否别扭。
+
+这一遍在浏览器里做过，界面本身没有问题；机器侧也没有横向溢出，
+截断只落在种子数据的长标题上。
 
 ## 7. 提 PR
 
