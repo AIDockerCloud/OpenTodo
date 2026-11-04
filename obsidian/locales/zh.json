@@ -30,7 +30,7 @@
   "Folder sync": "文件夹同步",
   "Folder {folder}": "文件夹 {folder}",
   "If {label} syncs again, it is refused until it takes over in turn.": "如果 {label} 再次同步，它会被拒绝，直到轮到它接管。",
-  "Inbox": "收件箱",
+  "Inbox": "收集箱",
   "Keeps one folder of this vault in two-way sync with OpenTodo, with the files and rules of ot vault: one file per project, one line per task. It syncs while Obsidian is open and in front: when the plugin starts, a second after you change a file in the folder, every 30 seconds and with “Sync folder now”. It does not sync in the background or while Obsidian is closed.": "让此库中的一个文件夹与 OpenTodo 双向同步，沿用 ot vault 的文件和规则：每个项目一个文件，每个任务一行。只在 Obsidian 打开并处于前台时同步：插件启动时、你改动文件夹中的文件一秒后、每 30 秒，以及使用“立即同步文件夹”时。后台或 Obsidian 关闭时不同步。",
   "Label {name}": "标签 {name}",
   "Lock": "锁定",
