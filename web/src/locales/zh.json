@@ -6906,7 +6906,7 @@
   "{n, plural, one {Would add # comment} other {Would add # comments}}": "{n, plural, other {会添加 # 条评论}}",
   "{n, plural, one {Would add to # note} other {Would add to # notes}}": "{n, plural, other {会追加到 # 条笔记}}",
   "{n, plural, one {Would change # task} other {Would change # tasks}}": "{n, plural, other {会更改 # 个任务}}",
-  "{n, plural, one {Would create # task in {project}} other {Would create # tasks in {project}}}": "{n, plural, other {会在{project}中创建 # 个任务}}",
+  "{n, plural, one {Would create # task in {project}} other {Would create # tasks in {project}}}": "{n, plural, other {会在 {project} 中创建 # 个任务}}",
   "{n, plural, one {Would create # task} other {Would create # tasks}}": "{n, plural, other {会创建 # 个任务}}",
   "{n, plural, one {Would run once} other {Would run # times}}": "{n, plural, other {会运行 # 次}}",
   "{n, plural, one {You completed # task this week.} other {You completed # tasks this week.}}": "{n, plural, other {本周你完成了 # 个任务。}}",
