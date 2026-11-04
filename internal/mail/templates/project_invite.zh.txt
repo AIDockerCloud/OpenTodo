@@ -1,9 +1,9 @@
-{{.Inviter}}邀请你加入一个共享项目
+{{.Inviter}} 邀请你加入一个共享项目
 
 这是一封加入 OpenTodo 共享项目的邀请。
 
-{{.Inviter}}邀请 {{.Email}} 以{{.Role}}身份加入 {{.Origin}} 上 OpenTodo 服务器中的一个项目。要加入，请打开此链接：
+{{.Inviter}} 邀请 {{.Email}} 以{{.Role}} 身份加入 {{.Origin}} 上 OpenTodo 服务器中的一个项目。要加入，请打开此链接：
 
 {{.Link}}
 
-链接将在 {{.Expiry}}后失效。如果你不认识{{.Inviter}}，可以忽略这封邮件。
+链接将在 {{.Expiry}} 后失效。如果你不认识 {{.Inviter}}，可以忽略这封邮件。
