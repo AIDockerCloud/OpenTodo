@@ -64,7 +64,7 @@
   "Remembering keeps the account key in Obsidian’s storage on this device, so anyone who can open Obsidian here can read your tasks’ titles as they are sent.": "记住会把账户密钥保存在本设备的 Obsidian 存储中，因此任何能在这里打开 Obsidian 的人都能读到发送时的任务标题。",
   "Remove the line": "移除该行",
   "Remove {chip}": "移除 {chip}",
-  "Repeats {rule}": "重复{rule}",
+  "Repeats {rule}": "重复 {rule}",
   "Send": "发送",
   "Send line as a task": "把该行作为任务发送",
   "Send line to OpenTodo": "把该行发送到 OpenTodo",
