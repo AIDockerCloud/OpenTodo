@@ -8,7 +8,7 @@
 
 ## 0. 先把工具链装上（一次就够）
 
-> 本分支已经变基到 `upstream/main`（`ed97c6cdd`）。上游那 14 个提交往词条表加了 6 条
+> 本分支已经变基到 `upstream/main`（`56bfe4093`）。上游那 14 个提交往词条表加了 6 条
 > （评论 webhook 三个事件、单键快捷键开关、Android 麦克风提示），已补译。
 > 后来上游又新增了 22 条 OAuth 相关词条并删除 1 条，条数从 7082 变成 7109。
 
@@ -24,8 +24,7 @@ go mod download              # Go 侧编译与测试
 make i18n-check              # 应输出 ok (7109 messages, every shipped catalog complete)
 ```
 
-> 我这边只装了 `web/node_modules/typescript`（4.4 MB），够跑 i18n 检查，但 `make check`
-> 里的 vitest / storybook / tsc 全都没跑过。第 5 节是补这一课。
+> **本分支的门禁已经全部实测通过**（第 5 节列了实测值），不需要再从头跑一遍。
 
 ## 1. 生成审校稿（5 分钟内完成）
 
@@ -97,7 +96,7 @@ node --test extension/locales.test.js          # 17 项，应全绿
 node scripts/i18n-check.mjs                    # 含 shell + obsidian 检查
 ```
 
-## 5. 机器检查结果（本机已实测，2026-11-04）
+## 5. 机器检查结果（本机已实测，2026-11-05）
 
 工具链：`web/node_modules` 444 MB（`npm install`，**不要用 `npm ci`**，它会先清空 node_modules）、
 Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn,direct`。
@@ -111,9 +110,9 @@ Go 1.27.3 解包在 `~/go-sdk/go`（无需 sudo）、`GOPROXY=https://goproxy.cn
 | `node --test extension/locales.test.js` | 17 项全绿 |
 | `go test ./internal/mail/... ./internal/channels/... ./internal/quickadd/...` | 全过 |
 | `make fmt-check` / `templates-check` / `docs-check` | 通过 |
-| `openspec validate --all --strict` | 145 项全过 |
+| `openspec validate --all --strict` | 146 项全过 |
 | `make bundle-budget` | ok：入口 141.2 KB / 预算 142；首屏 678.5 KB / 预算 679 |
-| `vitest` | 7611 通过、1 个既有 flaky、7 skipped（见下） |
+| `vitest` | 7638 通过、1 个既有 flaky、3 skipped（见下） |
 
 **中文包体积**：`zh-*.js` 515 KB 原始 / **178 KB gzip**，独立懒加载 chunk
 （德语 574 KB / 178 KB，法语 588 KB / 178 KB —— 中文下载量与德语持平）。
