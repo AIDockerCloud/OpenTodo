@@ -24,7 +24,7 @@
   "Encrypted, locked": "已加密，已锁定",
   "Encrypted, unlocked": "已加密，已解锁",
   "Energy {level}": "精力 {level}",
-  "Estimate {d}": "估时 {d}",
+  "Estimate {d}": "预估时长 {d}",
   "Fix task links in this note": "修复此笔记中的任务链接",
   "Folder": "文件夹",
   "Folder sync": "文件夹同步",
